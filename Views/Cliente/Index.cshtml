@@ -1,0 +1,57 @@
+﻿@model List<Cliente>
+@{
+    ViewData["Title"] = "Listagem de Clientes";
+}
+
+<div class="text-center">
+
+    @if (TempData["MessageSuccess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="close">X</button>
+            @TempData["MessageSuccess"]
+        </div>
+    }
+
+    @if (TempData["MessageError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="close">X</button>
+            @TempData["MessageError"]
+        </div>
+    }
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary" role="button" asp-controller="Cliente" asp-action="CreateClient">Adicionar Novo Cliente</a>
+    </div>
+
+    <h1 class="display-4">Listagem de Clientes</h1>
+
+    <table class="table" id="table-clientes">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cidade</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var cliente in Model)
+                {
+                    <tr>
+                        <th scope="row">@cliente.Id</th>
+                        <td>@cliente.Nome</td>
+                        <td>@cliente.Cidade</td>
+                        <td><a role="button" class="btn btn-warning" asp-route-id="@cliente.Id" asp-controller="Cliente" asp-action="UpdateClient">Editar</a></td>
+                        <td><a role="button" class="btn btn-danger" asp-route-id="@cliente.Id" asp-controller="Cliente" asp-action="DeleteClient">Excluir</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
